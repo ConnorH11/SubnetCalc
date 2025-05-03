@@ -1,0 +1,103 @@
+﻿@page
+@model VLSMModel
+@{
+    ViewData["Title"] = "VLSM Calculator";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">VLSM Calculator</h2>
+
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="BaseNetwork" class="form-label">Base Network IP</label>
+            <input asp-for="BaseNetwork" class="form-control" placeholder="e.g. 192.168.0.0" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BaseCidr" class="form-label">CIDR or Subnet Mask</label>
+            <input asp-for="BaseCidr" class="form-control" placeholder="e.g. /24" />
+        </div>
+
+        <h5>Subnets</h5>
+
+        @for (int i = 0; i < Model.HostsPerSubnet.Count; i++)
+{
+        <div class="input-group mb-3 align-items-center">
+            <span class="input-group-text">Subnet @(i + 1)</span>
+            <input type="text" class="form-control" name="SubnetLabels[@i]" placeholder="Label (optional)" value="@(Model.SubnetLabels[i])" />
+            <input type="number" class="form-control" name="HostsPerSubnet[@i]"
+                   value="@(Model.HostsPerSubnet[i] == 0 ? "" : Model.HostsPerSubnet[i].ToString())"
+                   placeholder="Required Hosts" min="1" />
+            <button type="submit" name="RemoveSubnet" value="@i" class="btn btn-outline-danger ms-2" title="Remove Subnet">
+                <strong>&minus;</strong>
+            </button>
+        </div>
+}
+
+        <!-- ✅ Now this is OUTSIDE the loop -->
+        <div class="d-flex gap-2 mb-4">
+            <button type="submit" name="AddSubnet" class="btn btn-secondary">+ Add Subnet</button>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+            @if (Model.Results?.Any() == true)
+    {
+            <button type="submit" name="ExportCsv" class="btn btn-outline-success">Export CSV</button>
+    }
+        </div>
+
+    </form>
+
+
+    @section Scripts {
+        <script>
+            const hostsCheckbox = document.getElementById("EnableHosts");
+            const countCheckbox = document.getElementById("EnableCount");
+            const hostsSection = document.getElementById("hostsSection");
+            const countSection = document.getElementById("countSection");
+
+            function toggleSections() {
+                hostsSection.style.display = hostsCheckbox.checked ? "block" : "none";
+                countSection.style.display = countCheckbox.checked ? "block" : "none";
+            }
+
+            hostsCheckbox.addEventListener("change", toggleSections);
+            countCheckbox.addEventListener("change", toggleSections);
+            toggleSections();
+        </script>
+    }
+
+
+    @if (Model.Results?.Any() == true)
+    {
+        <h4 class="mt-5">Subnets</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Network Address</th>
+                    <th>CIDR</th>
+                    <th>Subnet Mask</th>
+                    <th>First Host</th>
+                    <th>Last Host</th>
+                    <th>Broadcast</th>
+                    <th>Usable Hosts</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Results.Count; i++)
+                {
+                    var subnet = Model.Results[i];
+                    <tr>
+                        <td>@subnet.Label</td>
+                        <td>@subnet.NetworkAddress</td>
+                        <td>@subnet.CidrNotation</td>
+                        <td>@subnet.SubnetMask</td>
+                        <td>@subnet.FirstHost</td>
+                        <td>@subnet.LastHost</td>
+                        <td>@subnet.BroadcastAddress</td>
+                        <td>@subnet.HostCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
