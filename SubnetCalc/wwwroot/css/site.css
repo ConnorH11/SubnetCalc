@@ -20,3 +20,247 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-outline-danger {
+    padding: 0.25rem 0.6rem;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+    body.dark-mode .card {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        box-shadow: 0 0 10px 2px white;
+        border: none;
+    }
+
+    body.dark-mode .navbar {
+        background-color: #1e1e1e !important;
+    }
+
+    body.dark-mode .navbar-nav .nav-link {
+        color: #ffffff !important;
+    }
+
+    body.dark-mode .list-group-item {
+        background-color: #2a2a2a;
+        color: #ffffff;
+    }
+
+    body.dark-mode .form-control,
+    body.dark-mode .form-select {
+        background-color: #2b2b2b;
+        color: #ffffff;
+        border-color: #444;
+    }
+
+    body.dark-mode .btn-primary {
+        background-color: #006eff;
+        border-color: #005cd1;
+    }
+
+        body.dark-mode .btn-primary:hover {
+            background-color: #005cd1;
+        }
+
+    body.dark-mode .alert {
+        background-color: #333;
+        border-color: #555;
+        color: #fff;
+    }
+
+    body.dark-mode #logoLight {
+        display: none;
+    }
+
+    body.dark-mode #logoDark {
+        display: inline;
+    }
+
+    body:not(.dark-mode) #logoDark {
+    display: none;
+    }
+
+    #darkModeToggle {
+    outline-color: #000;
+    color: #000;
+    border: 1px solid #333;
+    }
+
+    body.dark-mode #darkModeToggle {
+    outline-color: #FFF;
+    color: #FFF;
+    border: 1px solid #ccc;
+    }
+
+body.dark-mode table,
+body.dark-mode .table {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    border-color: #444;
+}
+
+    body.dark-mode .table th,
+    body.dark-mode .table td {
+        border-color: #555;
+        color: #ddd;
+    }
+
+body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #333;
+}
+
+body.dark-mode .table-striped tbody tr:nth-of-type(even) {
+    background-color: #2b2b2b;
+}
+
+body.dark-mode .interface-ip-label,
+body.dark-mode .custom-textbox {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body:not(.dark-mode) .bmc-btn-container .bmc-btn {
+    border: 2px solid #1e1e1e !important; /* Dark outline for light mode */
+    border-radius: 8px !important; /* Optional: match the button shape */
+}
+
+.help-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+    .help-toggle:hover {
+        background-color: #0056b3;
+    }
+
+.help-text {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-left: 4px solid #007bff;
+    font-size: 0.9em;
+    border-radius: 4px;
+}
+
+body.dark-mode .help-text {
+    background-color: #2a2a2a;
+    color: #f1f1f1;
+    border-left-color: #66aaff;
+}
+
+body.dark-mode .tooltip {
+    background: #2a2a2a;
+    color: #f1f1f1;
+    border-color: #444;
+}
+
+    body.dark-mode .tooltip::after {
+        border-color: #2a2a2a transparent transparent transparent;
+    }
+
+/* From Uiverse.io by VassoD */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.help-button {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+    .help-button:hover,
+    .help-button:focus {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+        color: #fff;
+    }
+
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    color: #1f2937;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(229, 231, 235, 1);
+}
+
+    /* Tooltip arrow */
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px;
+        border-style: solid;
+        border-color: #ffffff transparent transparent transparent;
+    }
+
+.tooltip-container:hover .tooltip,
+.help-button:focus + .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
+    }
+
+    100% {
+        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+}
+
+.tooltip strong {
+    animation: glow 2s infinite;
+    font-weight: 600;
+}
+
+.tooltip i {
+    margin-right: 6px;
+    color: #6366f1;
+}
+
+@media (max-width: 768px) {
+    .tooltip {
+        font-size: 13px;
+        padding: 10px 16px;
+    }
+
+    .help-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
